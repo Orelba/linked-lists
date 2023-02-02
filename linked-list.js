@@ -7,9 +7,12 @@ class LinkedList {
   }
 
   prepend(value) {
-    if (this.HEAD) return this.HEAD = new Node(value, this.HEAD)
+    if (this.HEAD) {
+      this.HEAD = new Node(value, this.HEAD)
+    } else {
+      this.HEAD = new Node(value)
+    }
 
-    this.HEAD = new Node(value)
     this.length++
   }
 
@@ -39,10 +42,10 @@ class LinkedList {
   }
 
   at(index) {
+    if (!this.HEAD) return null
+
     let i = 0
     let current = this.HEAD
-
-    if (!current) return null
 
     while (i !== index && current.next) {
       current = current.next
@@ -64,12 +67,40 @@ class LinkedList {
     this.length--
   }
 
-  // TODO: 
-  contains(value) {}
-  find(value) {}
-  toString() {}
-  insertAt(value, index) {}
-  removeAt(index) {}
+  contains(value) {
+    if (!this.HEAD) return false
+    for (let i = 0; i < this.length; i++) {
+      if (this.at(i).val === value) {
+        return true
+      }
+    }
+    return false
+  }
+
+  find(value) {
+    if (!this.HEAD) return null
+    for (let i = 0; i < this.length; i++) {
+      if (this.at(i).val === value) {
+        return i
+      }
+    }
+    return null
+  }
+
+  toString() {
+    if (!this.HEAD) return null
+
+    let listString = ''
+    for (let i = 0; i < this.length; i++) {
+      listString += `( ${this.at(i).val} ) -> `
+    }
+    listString += 'null'
+
+    return listString
+  }
+
+  insertAt(value, index) { } // this.length++
+  removeAt(index) { } // this.length--
 }
 
 const list = new LinkedList()
@@ -77,23 +108,25 @@ const list = new LinkedList()
 console.log('Empty List:', list)
 
 list.prepend('something')
-// list.append('other thing')
-// list.append('some almost last')
-// list.append('some really last')
-// list.append('wow')
-// list.prepend("I'm first")
+list.append('other thing')
+list.append('some almost last')
+list.append('some really last')
+list.append('wow')
+list.prepend("I'm first")
 
 console.log('Full List:', list)
 console.log('---')
 
 // console.log('size():', list.size())
 // console.log('head():', list.head())
-console.log('tail():', list.tail())
+// console.log('tail():', list.tail())
 // console.log('at(index):', list.at(6))
 
-list.pop()
+// list.pop()
 
 console.log('List Edited:', list)
 console.log('---')
 // console.log('tail():', list.tail())
-console.log('at(index):', list.at(0))
+// console.log('at(index):', list.at(0))
+// console.log(list.find('wow'))
+// console.log(list.toString())

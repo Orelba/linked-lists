@@ -99,7 +99,24 @@ class LinkedList {
     return listString
   }
 
-  insertAt(value, index) { } // this.length++
+  insertAt(value, index) {
+    if (!this.HEAD || index > this.length) return null
+
+    if (index === 0) {
+      this.HEAD = new Node(value, this.HEAD)
+    } else {
+      let curr = this.HEAD
+      for (let i = 0; i < index - 1; i++) {
+        curr = curr.next
+      }
+
+      const node = new Node(value, curr.next)
+      curr.next = node
+    }
+
+    this.length++
+  }
+
   removeAt(index) { } // this.length--
 }
 
@@ -110,9 +127,9 @@ console.log('Empty List:', list)
 list.prepend('something')
 list.append('other thing')
 list.append('some almost last')
-list.append('some really last')
+// list.append('some really last')
 list.append('wow')
-list.prepend("I'm first")
+// list.prepend("I'm first")
 
 console.log('Full List:', list)
 console.log('---')
@@ -129,4 +146,8 @@ console.log('---')
 // console.log('tail():', list.tail())
 // console.log('at(index):', list.at(0))
 // console.log(list.find('wow'))
-// console.log(list.toString())
+console.log(list.toString())
+
+list.insertAt('inserted', 1)
+console.log(list.toString())
+

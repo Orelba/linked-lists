@@ -105,49 +105,38 @@ class LinkedList {
     if (index === 0) {
       this.HEAD = new Node(value, this.HEAD)
     } else {
-      let curr = this.HEAD
+      let current = this.HEAD
       for (let i = 0; i < index - 1; i++) {
-        curr = curr.next
+        current = current.next
       }
 
-      const node = new Node(value, curr.next)
-      curr.next = node
+      const node = new Node(value, current.next)
+      current.next = node
     }
 
     this.length++
   }
 
-  removeAt(index) { } // this.length--
+  removeAt(index) {
+    if (!this.HEAD || index >= this.length) return null
+    if (index === 0) {
+      this.HEAD = this.HEAD.next
+      this.length--
+      return
+    }
+
+    let current = this.HEAD
+    let prev = null
+    let i = 0
+
+    while (current !== null && i !== index) {
+      prev = current
+      current = current.next
+      i++
+    }
+
+    prev.next = current.next
+
+    this.length--
+  }
 }
-
-const list = new LinkedList()
-
-console.log('Empty List:', list)
-
-list.prepend('something')
-list.append('other thing')
-list.append('some almost last')
-// list.append('some really last')
-list.append('wow')
-// list.prepend("I'm first")
-
-console.log('Full List:', list)
-console.log('---')
-
-// console.log('size():', list.size())
-// console.log('head():', list.head())
-// console.log('tail():', list.tail())
-// console.log('at(index):', list.at(6))
-
-// list.pop()
-
-console.log('List Edited:', list)
-console.log('---')
-// console.log('tail():', list.tail())
-// console.log('at(index):', list.at(0))
-// console.log(list.find('wow'))
-console.log(list.toString())
-
-list.insertAt('inserted', 1)
-console.log(list.toString())
-
